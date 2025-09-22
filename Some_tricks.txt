@@ -1,0 +1,324 @@
+**********__builtin_fun()****************
+__builtin_clz(k)
+__builtin_ctz(k)
+int mx2p(int n)
+{
+    return 1<<(31-__builtin_clz(n));
+}
+int mi2p(int n)
+{
+    return 1<<__builtin_ctz(n);
+}
+getline(cin,s);
+
+**********vector sort + unique*************
+void unik(vector<int>&sam)
+{
+    int n=sam.size();
+    sort(sam.begin(),sam.end());
+    vector<int>ans;
+    if(n)
+    {
+        ans.push_back(sam[0]);
+    }
+    for(int i=1;i<n;i++)
+    {
+        if(sam[i]!=sam[i-1])
+        {
+            ans.push_back(sam[i]);
+        }
+    }
+    sam=ans;
+    ans.clear();
+}
+
+****************ll to binary*************
+vector<bool>binary(ll n,int k=63)
+{
+    vector<bool>ans(k);
+    for(int i=0;i<k;i++)
+    {
+        ans[i]=n%2;
+        n/=2;
+    }
+    reverse(all(ans));
+    for(auto it:ans)cout<<it; cout<<"\n";
+    return ans;
+}
+***********stars and bars****************
+x1+x2+x3+........+xn=r; 
+nCr(n+r-1,r)/nCr(n+r-1,n-1)
+****************Math*******************
+
+***************Trigonometry***************
+bool is_n_tri(ld a ,ld b ,ld c)
+{
+    if(a<b)swap(a,b);
+    if(a<c)swap(a,c);
+    return a>=b+c;
+}
+ld angle(ld a ,ld b ,ld c)
+{
+    if(is_n_tri(a,b,c))
+    {
+        return inf;
+    }
+    ld A=acos((b*b+c*c-a*a)/(2*b*c));
+    return A*180/PI; //A==<bc
+}
+tuple<ll,ll,ll>st_line(ll x1,ll y1,ll x2,ll y2)
+{
+    ll dx=(x1-x2),dy=(y1-y2);
+    ll a=dy,b=-dx,c=y1*dx-x1*dy;
+    ll gcd=__gcd(__gcd(a,b),c);
+    a/=gcd,b/=gcd,c/=gcd;
+    if(a<0||a==0&&b<0)a=-a,b=-b,c=-c;
+    return {a,b,c};
+}
+//(x1,y1),(x2,y2)--->ax+by+c=0;
+//auto [a,b,c]=st_line(x1,y1,x2,y2);
+
+*************K'th call in recursion****************
+const ll M=1e9+7;
+const int N=10001;
+const ll inf=1e18;
+//tem
+ll dp[N];
+ll fun(int n,int p)
+{
+    if(dp[n]!=-1)return dp[n];
+    if(n<p)return dp[n]=0;
+    dp[n]=0;
+    for(int i=1; i<=p; i++)
+    {
+        ll now=1+fun(n-i,p);
+        dp[n]+=now;
+        if(dp[n]>=inf)break;
+    }
+    return dp[n];
+}
+//main
+int main()
+{
+    fastio
+    int n,p;
+    ll k;
+    cin>>n>>p;
+    cin>>k;
+    for(int i=0; i<=n; i++)dp[i]=-1;
+    fun(n,p);
+    n=n;
+    int ans1=0,ans2=0;
+    while(ans1==0&&n>=p)
+    {
+        for(int i=1; i<=p; i++)
+        {
+            if(1+dp[n-i]<k)
+            {
+                k=k-1-dp[n-i];
+            }
+            else if(k==1)
+            {
+                ans1=n;
+                ans2=n-i;
+                break;
+            }
+            else
+            {
+                k--;
+                n=n-i;
+                break;
+            }
+        }
+    }
+    cout<<ans1<<" "<<ans2<<"\n";
+}
+
+********************Mex*************************
+struct _mex
+{
+    vector<bool>str;
+    int n;
+    _mex(int n=0)
+    {
+        this->n=n+1;
+        str.resize(n+1);
+        for(int i=0; i<=n; i++)str[i]=0;
+    }
+    void add(int k)
+    {
+        if(k>=str.size())return;
+        str[k]=1;
+    }
+    int ans()
+    {
+        for(int i=0; i<n; i++)if(!str[i])return i;
+        return n;
+    }
+    void clr()
+    {
+        for(int i=0; i<n; i++)str[i]=0;
+    }
+    ~_mex()
+    {
+        str.clear();
+    }
+};
+//vector<_mex>sss(m,_mex(n));_mex mex(n);
+
+*************boolian exp check*****************
+int main()
+{
+    fastio
+    bool same=1;
+    int n=3;
+    bool str[n];
+    for(int i=0;i<(1<<n);i++)
+    {
+        for(int j=0;j<n;j++)str[j]=(1<<j)&i;
+        bool exp1=(str[0]&&str[1])||(str[1]&&str[2])||(str[2]&&str[0]);
+        bool exp2=(str[0]||str[1])&&(str[1]||str[2])&&(str[2]||str[0]);
+        same=same&&(exp1==exp2);
+    }
+    cout<<same;
+}
+***************__int128***********************
+void plll(lll tem)
+{
+    if(tem==0)
+    {
+        cout<<"0";
+    }else if(tem>0)
+    {
+        if(tem/1000000000)plll(tem/1000000000);
+        cout<<(int)(tem%1000000000);
+    }else
+    {
+        cout<<"-";
+        plll(-tem);
+    }
+}
+lll clll()
+{
+    string s;
+    cin>>s;
+    lll tem=0;
+    for(int i=0;i<s.size();i++)
+    {
+        tem=tem*10+s[i]-'0';
+    }
+    return tem;
+}
+**************left,right value***********
+int val(vector<int>&tem,int val,bool left=0)
+{
+    if(left==0)
+    {
+        auto it=lower_bound(all(tem),val);
+        if(it==tem.end())return 1e9+7;
+        return *it;
+    }else
+    {
+        auto it=upper_bound(all(tem),val);
+        if(it==tem.begin())return 0;
+        it--;
+        return *it;
+    }
+}
+*************dp technique*****************
+int n,k;
+ll dp[N][21];
+int opt[N][21];
+vector<pair<ll,int>>str;
+ll dis[N][N];
+void make(int n)
+{
+    for(int i=1;i<=n;i++)
+    {
+        ll sum=0;
+        for(int j=i;j>=1;j--)
+        {
+            sum=sum+(str[i].first-str[j].first)*(str[i].first-str[j].first);
+            dis[i][j]=sum;
+        }
+    }
+}
+void fun(int i,int n,int optl,int optr,int k)
+{
+    if(i>n)return ;
+    int mid=(i+n)/2;
+    int op;
+    dp[mid][k]=inf;
+    for(int p=optl;p<=min(optr,mid);p++)
+    {
+        ll tem=dis[mid][p]+dp[p-1][k-1];
+        if(tem<dp[mid][k])
+        {
+            dp[mid][k]=tem;
+            op=p;
+        }
+    }
+    //cout<<i<<" "<<n<<"\n";
+    opt[mid][k]=op;
+    fun(i,mid-1,optl,op,k);
+    fun(mid+1,n,op,optr,k);
+}
+//main
+int main()
+{
+    fastio
+    //TT
+    {
+        cin>>n>>k;
+        str.push_back({0,0});
+        for(int i=1;i<=n;i++)
+        {
+            ll p;
+            cin>>p;
+            str.push_back({p,i});
+        }
+        for(int i=0;i<=n;i++)dp[i][0]=inf;
+        for(int j=0;j<=k;j++)dp[0][j]=0;
+        sort(all(str));
+        make(n);
+        //fun(n,k);
+        for(int i=1;i<=k;i++)
+        {
+            fun(1,n,1,n,i);
+        }
+        vector<pair<int,int>>ans;
+        int i=n;
+        while(i>0)
+        {
+            int j=opt[i][k];
+            for(int p=i;p>=j;p--)
+            {
+                ans.push_back({str[p].second,str[i].first});
+            }
+            i=j-1;
+            k--;
+        }
+        sort(all(ans));
+        for(auto [x,y]:ans)cout<<y<<" "; cout<<"\n";
+    }
+}
+---------------------vector randme shuffle---------------------------------------------------------
+void randp(vector<int>&sam)
+{
+    int n=sam.size();
+    vector<pair<int,int>>a(n);
+    for(int i=0;i<n;i++)
+    {
+        a[i].first=get_rand(0,M);
+        a[i].second=sam[i];
+    }
+    sort(all(a));
+    for(int i=0;i<n;i++)sam[i]=a[i].second;
+}
+-----------------------FloorSumAP--------------------------------
+ long long FloorSumAP(long long a, long long b, long long c, long long n){
+  if(!a) return (b / c) * (n + 1);
+  if(a >= c or b >= c) return ( ( n * (n + 1) ) / 2) * (a / c) + (n + 1) * (b / c) + FloorSumAP(a % c, b % c, c, n);
+  long long m = (a * n + b) / c;
+  return m * n - FloorSumAP(c, c - b - 1, a, m - 1);
+}
