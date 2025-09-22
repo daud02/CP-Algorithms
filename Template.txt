@@ -1,0 +1,50 @@
+//#pragma GCC target("popcnt")
+#include<bits/stdc++.h>
+using namespace std;
+//define
+#define ll long long
+#define lll __int128
+#define ld long double
+#define ull unsigned long long
+#define pb push_back
+#define m_p make_pair
+#define PI (ld)3.14159265359
+#define TT int t;cin>>t; for(int tt=1;tt<=t;tt++)
+#define cintree(n) for(int i=1;i<=n;i++)g[i].clear();for(int i=1;i<n;i++){int x,y;cin>>x>>y;g[x].pb(y);g[y].pb(x);}
+#define LO cout<<"Case "<<tt<<": ";
+#define fastio ios_base::sync_with_stdio(0); cin.tie(0);
+#define fio freopen("input.txt","r",stdin);freopen("output.txt","w",stdout);
+#define yes(ans) {(ans)? cout<<"YES\n":cout<<"NO\n";}
+#define Yes(ans) {(ans)? cout<<"Yes\n":cout<<"No\n";}
+#define msort(cont) sort(cont.begin(),cont. End());
+#define ceill(a,b) ((a+b-1)/b)
+#define all(v) v.begin(),v.end()
+#define set4(cont,p,q,r,s,val) for(int i=0;i<=p;i++)for(int j=0;j<=q;j++)for(int k=0;k<=r;k++)for(int l=0;l<=s;l++)dp[i][j][k][l]=val;
+#define set3(cont,p,q,r,val) for(int i=0;i<=p;i++)for(int j=0;j<=q;j++)for(int k=0;k<=r;k++)cont[i][j][k]=val;
+#define set2(cont,p,q,val) for(int i=0;i<=p;i++)for(int j=0;j<=q;j++)cont[i][j]=val;
+#define set1(cont,p,val) for(int i=0;i<=p;i++)cont[i]=val;
+#define debug(a) //cout << #a <<" : "<<a<<"\n";
+#define debuga(a) //for(int i=0;i<a.size();i++) cout<<#a<<"["<<i<<"] "<<a[i]<<"\n";
+//constants
+const int M=1e9+7;
+const int mod=1e9+7;
+const int N=1e6+3;
+const ll inf=1e15;
+//random
+mt19937_64 rnd(chrono::steady_clock::now().time_since_epoch().count());
+long long get_rand(long long l, long long r) { // random number from l to r
+  assert(l <= r);
+  return l + rnd() % (r - l + 1);
+}
+//commented fun
+//ll bpow(ll base,ll po,int M=mod){ll ans=1;while(po){if(po%2)ans=(ans*base)%M;base=(base*base)%M,po/=2;}return ans;}
+//void print(ll val,int seg=20){cout<<val;while(val)seg--,val/=10;while(seg--)cout<<' ';}
+//main
+int main()
+{
+    fastio
+    TT
+    {
+
+    }
+}
